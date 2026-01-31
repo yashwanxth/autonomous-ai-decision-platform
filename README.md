@@ -2,23 +2,41 @@
 
 A production-style, end-to-end **Autonomous AI Decision System** that ingests real-time events, builds features, predicts risk, optimizes actions using reinforcement learning, and produces final decisions with safety rules.
 
-This project is designed at **senior ML systems / MLOps level** and mirrors real-world architectures.
+This project is designed to reflect **senior-level ML systems and MLOps practices** and mirrors real-world production architectures.
+
+---
+
+## 🎯 Why This Project
+
+This project demonstrates how modern AI systems are built **beyond notebooks and toy datasets**:
+
+- Streaming data pipelines
+- Real-time feature stores
+- Multiple ML paradigms working together
+- Decision optimization, not just prediction
+- Safety rules, fallbacks, and production mindset
+
+It is intentionally designed as a **systems-first AI project**, not a model-only demo.
 
 ---
 
 ## 🚀 What This System Does
 
-* Ingests real-time events using **Apache Kafka**
-* Builds rolling, time-windowed features in **Redis**
-* Detects anomalies using **Isolation Forest**
-* Predicts risk using **Deep Learning (PyTorch)**
-* Chooses optimal actions using **Reinforcement Learning (PPO)**
-* Applies **hard safety rules & fallbacks**
-* Outputs a final decision:
+- Ingests real-time events using **Apache Kafka**
+- Builds rolling, time-windowed features in **Redis**
+- Detects anomalies using **Isolation Forest**
+- Predicts risk using **Deep Learning (PyTorch)**
+- Chooses optimal actions using **Reinforcement Learning (PPO)**
+- Applies **hard safety rules & fallbacks**
+- Outputs a final decision
 
-  * `0 = Allow`
-  * `1 = Throttle`
-  * `2 = Block`
+### Decision Codes
+
+| Code | Meaning   |
+|----:|-----------|
+| 0   | Allow     |
+| 1   | Throttle  |
+| 2   | Block     |
 
 ---
 
@@ -190,9 +208,13 @@ docker exec -it <kafka_container> kafka-console-producer \
 
 Example event:
 
-```json
-{"event_id":"1","entity_id":"123","event_type":"action","value":10,"timestamp":"2026-01-30T12:00:00Z"}
-```
+{
+  "event_id": "1",
+  "entity_id": "123",
+  "event_type": "action",
+  "value": 10,
+  "timestamp": "2026-01-30T12:00:00Z"
+}
 
 ---
 
@@ -243,52 +265,3 @@ Output:
 ```
 0 | 1 | 2
 ```
-
----
-
-## 🧪 Current Status
-
-✅ Kafka ingestion working
-✅ Redis feature store working
-✅ Isolation Forest trained
-✅ Risk prediction model trained
-✅ RL agent trained
-✅ Decision engine producing actions
-
----
-
-## 🛣️ Roadmap
-
-* FastAPI serving layer
-* PostgreSQL outcome storage
-* Online RL feedback loop
-* LLM explainability (Ollama)
-* Metrics & dashboards
-
----
-
-## 🧠 Design Principles
-
-* Fail fast on bad data
-* ML is never blindly trusted
-* Rules override learning
-* Clear separation of concerns
-* Production-first mindset
-
----
-
-## 📌 How to Resume Work
-
-If project context is lost, paste:
-
-> **End-to-End Project Context document**
-
-and say:
-
-> **Continue from last completed phase**
-
----
-
-## 📄 License
-
-MIT (or add later)
