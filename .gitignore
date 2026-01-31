@@ -1,0 +1,33 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+
+# ---- Virtual Environment ----
+.venv/
+venv/
+
+# ---- ML Artifacts ----
+*.pt
+*.joblib
+*.zip
+
+# ---- Logs ----
+*.log
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- IDE ----
+.vscode/
+
+# ---- Docker ----
+*.env
+
+# ---- Redis Dumps (if any) ----
+dump.rdb
