@@ -29,10 +29,14 @@ for message in consumer:
 
     try:
         event = Event(**message.value)
+
+        # 🔥 THIS WAS MISSING
         update_features(
             entity_id=event.entity_id,
             value=event.value
         )
-        print(f"Processed event {event.event_id}")
+
+        print(f"Processed event {event.event_id} for entity {event.entity_id}")
+
     except Exception as e:
-        print("Error processing event:", e)
+        print("Invalid event:", e)

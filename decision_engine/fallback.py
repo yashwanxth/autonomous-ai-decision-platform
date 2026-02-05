@@ -1,3 +1,7 @@
 def fallback_decision():
-    # safest default
-    return 1  # throttle
+    return {
+        "entity_id": None,
+        "risk": None,
+        "action": 1,  # throttle
+        "explanation": "Fallback decision applied due to system error."
+    }
