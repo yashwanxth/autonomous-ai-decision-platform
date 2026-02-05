@@ -1,51 +1,66 @@
-# Autonomous AI Decision & Optimization Platform
+# Autonomous AI Decision & Optimization Platform — Notes & README
 
-A production-style, end-to-end **Autonomous AI Decision System** that ingests real-time events, builds features, predicts risk, optimizes actions using reinforcement learning, and produces final decisions with safety rules.
-
-This project is designed to reflect **senior-level ML systems and MLOps practices** and mirrors real-world production architectures.
+This file serves as the **primary README-style documentation** for the project, written in a **notes format** that is easy to revise, explain, and use during interviews. You can rename this file to `README.md` if you want to use it as the main repository README.
 
 ---
 
-## 🎯 Why This Project
+## Overview
 
-This project demonstrates how modern AI systems are built **beyond notebooks and toy datasets**:
+A **production-grade, end-to-end Autonomous AI Decision System** that ingests real-time events, builds streaming features, predicts risk, optimizes actions using reinforcement learning, and produces **explainable decisions** with safety rules and real-world feedback loops.
 
-- Streaming data pipelines
-- Real-time feature stores
-- Multiple ML paradigms working together
-- Decision optimization, not just prediction
-- Safety rules, fallbacks, and production mindset
-
-It is intentionally designed as a **systems-first AI project**, not a model-only demo.
+This project mirrors how **real ML platforms** are built in domains like fintech, fraud detection, mobility, and large-scale decision automation.
 
 ---
 
-## 🚀 What This System Does
+## Why This Project
 
-- Ingests real-time events using **Apache Kafka**
-- Builds rolling, time-windowed features in **Redis**
-- Detects anomalies using **Isolation Forest**
-- Predicts risk using **Deep Learning (PyTorch)**
-- Chooses optimal actions using **Reinforcement Learning (PPO)**
-- Applies **hard safety rules & fallbacks**
-- Outputs a final decision
+Most ML projects stop at model training. This system demonstrates how ML works **in production**:
 
-### Decision Codes
+* Streaming ingestion (Kafka)
+* Real-time feature stores (Redis)
+* Multiple ML paradigms working together
+* Decision optimization, not just prediction
+* Safety rules and fault tolerance
+* Outcome-driven reinforcement learning
+* Explainability using a **local LLM**
+* APIs, metrics, and observability
 
-| Code | Meaning   |
-|----:|-----------|
-| 0   | Allow     |
-| 1   | Throttle  |
-| 2   | Block     |
+This is a **systems-first AI project**, not a notebook demo.
 
 ---
 
-## 🧠 High-Level Architecture
+## What the System Does
+
+* Ingests real-time events using **Apache Kafka**
+* Builds rolling, time-windowed features in **Redis**
+* Detects anomalies using **Isolation Forest**
+* Predicts risk using **Deep Learning (PyTorch)**
+* Chooses optimal actions using **Reinforcement Learning (PPO)**
+* Applies **hard safety rules & fallbacks**
+* Stores decisions, outcomes, and rewards in **PostgreSQL**
+* Learns from real outcomes via an **RL feedback loop**
+* Generates human-readable explanations using **Ollama (local LLM)**
+* Exposes decisions via **FastAPI**
+* Publishes metrics via **Prometheus** and **Grafana**
+
+---
+
+## Decision Codes
+
+| Code | Meaning  |
+| ---: | -------- |
+|    0 | Allow    |
+|    1 | Throttle |
+|    2 | Block    |
+
+---
+
+## High-Level Architecture
 
 ```
 Event → Kafka → Feature Store (Redis)
                      ↓
-              Isolation Forest (baseline)
+              Isolation Forest
                      ↓
              Deep Learning Risk Model
                      ↓
@@ -53,27 +68,34 @@ Event → Kafka → Feature Store (Redis)
                      ↓
            Rule Engine + Fallback
                      ↓
-               Final Decision
+              Decision API (FastAPI)
+                     ↓
+           PostgreSQL (Decisions & Outcomes)
+                     ↓
+            RL Retraining (Feedback Loop)
+                     ↓
+        Local LLM Explainability (Ollama)
 ```
 
 ---
 
-## 🧰 Tech Stack (100% Free)
+## Tech Stack (100% Free & Open Source)
 
 ### Infrastructure
 
 * Docker & Docker Compose
 * Apache Kafka
 * Redis OSS
-* PostgreSQL (planned)
+* PostgreSQL
 
 ### ML / AI
 
 * Scikit-learn (Isolation Forest)
-* PyTorch (Deep Learning)
-* Stable-Baselines3 (Reinforcement Learning)
+* PyTorch (Deep Learning Risk Model)
+* Stable-Baselines3 (PPO Reinforcement Learning)
+* Ollama + LLaMA 3 (Local LLM Explainability)
 
-### Serving & Observability (planned)
+### Serving & Observability
 
 * FastAPI
 * Prometheus
@@ -81,21 +103,18 @@ Event → Kafka → Feature Store (Redis)
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ai-decision-platform/
 │
 ├── ingestion/
 │   └── kafka_consumer/
-│       ├── __init__.py
 │       ├── consumer.py
 │       └── schemas/
-│           ├── __init__.py
 │           └── event.py
 │
 ├── feature_store/
-│   ├── __init__.py
 │   ├── redis_client.py
 │   ├── window_aggregations.py
 │   └── feature_extractor.py
@@ -109,159 +128,137 @@ ai-decision-platform/
 │   │   └── infer.py
 │   └── reinforcement_learning/
 │       ├── environment.py
-│       └── agent.py
+│       ├── agent.py
+│       └── retrain.py
 │
-├── decision-engine/
+├── decision_engine/
 │   ├── decision_logic.py
 │   ├── rule_engine.py
 │   ├── fallback.py
 │   └── test_decision.py
 │
+├── llm/
+│   └── explainability.py
+│
+├── serving/
+│   └── api.py
+│
+├── observability/
+│   ├── prometheus.yml
+│   └── grafana-dashboards/
+│       └── datasource.yml
+│
+├── Dockerfile.api
 ├── docker-compose.yml
-├── README.md
-└── docs/
+├── requirements.txt
+├── .gitignore
+└── NOTES.md
 ```
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup & Run (Quick Start)
 
-### 1️⃣ Prerequisites
+### Prerequisites
 
 * Python 3.10+
 * Docker & Docker Compose
-* Git
-
-Verify:
-
-```bash
-docker --version
-python --version
-```
 
 ---
 
-### 2️⃣ Clone & Setup Virtual Environment
+### Run Everything (Recommended)
 
 ```bash
-git clone <repo-url>
-cd ai-decision-platform
-python -m venv .venv
+docker compose up --build
 ```
 
-Activate:
+This starts:
 
-* **Windows**
-
-```powershell
-.\.venv\Scripts\activate
-```
-
-* **macOS / Linux**
-
-```bash
-source .venv/bin/activate
-```
-
----
-
-### 3️⃣ Install Python Dependencies
-
-```bash
-pip install kafka-python redis scikit-learn numpy torch stable-baselines3 gymnasium joblib
-```
-
----
-
-### 4️⃣ Start Infrastructure
-
-```bash
-docker compose up -d
-```
-
-Services started:
-
-* Kafka
-* Zookeeper
+* Kafka & Zookeeper
 * Redis
 * PostgreSQL
+* FastAPI Decision API
+* Prometheus & Grafana
 
 ---
 
-## ▶️ Running the System
+## API Endpoints
 
-### 1️⃣ Start Kafka Consumer
+### Health Check
 
-```bash
-python -m ingestion.kafka_consumer.consumer
+```
+GET /health
 ```
 
----
+### Make a Decision
 
-### 2️⃣ Send Test Events
-
-```bash
-docker exec -it <kafka_container> kafka-console-producer \
-  --topic events \
-  --bootstrap-server localhost:9092
 ```
-
-Example event:
-
+POST /decide
 {
-  "event_id": "1",
-  "entity_id": "123",
-  "event_type": "action",
-  "value": 10,
-  "timestamp": "2026-01-30T12:00:00Z"
+  "entity_id": "201"
 }
+```
+
+Response:
+
+```json
+{
+  "decision_id": 1,
+  "entity_id": "201",
+  "action": 0,
+  "risk": 0.09,
+  "explanation": "..."
+}
+```
+
+### Submit Outcome (RL Feedback)
+
+```
+POST /outcome
+{
+  "decision_id": 1,
+  "outcome": "success"
+}
+```
 
 ---
 
-### 3️⃣ Verify Feature Store
-
-```bash
-docker exec -it <redis_container> redis-cli
-```
-
-```redis
-HGETALL features:123
-```
-
----
-
-### 4️⃣ Train Baseline ML (Isolation Forest)
+## ML Training (Run Once)
 
 ```bash
 python ml/baseline_models/isolation_forest.py
-```
-
----
-
-### 5️⃣ Train Deep Learning Risk Model
-
-```bash
 python ml/deep_learning/train.py
-```
-
----
-
-### 6️⃣ Train Reinforcement Learning Agent
-
-```bash
 python ml/reinforcement_learning/agent.py
 ```
 
+Model artifacts are intentionally **not committed** to keep the repo reproducible.
+
 ---
 
-### 7️⃣ Test Decision Engine
+## Reinforcement Learning Notes
 
-```bash
-python decision-engine/test_decision.py
-```
+* RL optimizes **long-term outcomes**, not single predictions
+* Rewards are computed from real-world outcomes
+* Retraining happens **offline** for safety
 
-Output:
+---
 
-```
-0 | 1 | 2
-```
+## Failure Handling
+
+If any component fails:
+
+* Missing features
+* Model load error
+* Redis or LLM unavailable
+
+➡️ A **safe fallback decision** is returned.
+
+This is intentional and production-safe.
+
+---
+
+## One-Minute Explanation
+
+> I built an autonomous AI decision platform where events stream through Kafka into a Redis feature store. A deep learning model predicts risk, a PPO reinforcement learning agent selects optimal actions, and hard rules enforce safety. Decisions and outcomes are stored in PostgreSQL, enabling a real feedback loop where the RL agent learns from real-world results. The system is exposed via FastAPI, monitored with Prometheus and Grafana, and every decision is explained using a local LLM.
+
+---
