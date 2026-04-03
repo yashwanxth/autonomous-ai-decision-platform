@@ -1,4 +1,4 @@
-# Autonomous AI Decision & Optimization Platform — Notes & README
+# Autonomous AI Decision & Optimization Platform
 
 This file serves as the **primary README-style documentation** for the project, written in a **notes format** that is easy to revise, explain, and use during interviews. You can rename this file to `README.md` if you want to use it as the main repository README.
 
